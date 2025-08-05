@@ -17,6 +17,21 @@ export function ThemedText({
 }: ThemedTextProps) {
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
 
+  // Filter out navigation-specific props that should not be passed to Text component
+  const {
+    onPress,
+    onLongPress,
+    onPressIn,
+    onPressOut,
+    hitSlop,
+    pressRetentionOffset,
+    delayLongPress,
+    delayPressIn,
+    delayPressOut,
+    disabled,
+    ...safeProps
+  } = rest;
+
   return (
     <Text
       style={[
@@ -28,7 +43,7 @@ export function ThemedText({
         type === 'link' ? styles.link : undefined,
         style,
       ]}
-      {...rest}
+      {...safeProps}
     />
   );
 }
